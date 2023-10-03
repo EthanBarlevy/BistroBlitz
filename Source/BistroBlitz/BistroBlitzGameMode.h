@@ -21,6 +21,8 @@ class ABistroBlitzGameMode : public AGameModeBase
 
 protected:
 	virtual void BeginPlay();
+	virtual void Tick();
+	virtual void Destroyed();
 
 public:
 	ABistroBlitzGameMode();

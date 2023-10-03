@@ -4,16 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "WidgetBase.generated.h"
+
+#pragma warning(push)
+#pragma warning(disable: 4996)
+#include "Steam/steam_api.h"
+#pragma warning(pop)
+
+#include "BasicMatchmakingUI.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BISTROBLITZ_API UWidgetBase : public UUserWidget
+class BISTROBLITZ_API UBasicMatchmakingUI : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UButton* SearchForLobby;
@@ -25,6 +31,9 @@ protected:
 
 	UFUNCTION()
 	void SearchOnClicked();
+
+	//UFUNCTION()
+	void OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure);
 
 	UFUNCTION()
 	void JoinOnClicked();

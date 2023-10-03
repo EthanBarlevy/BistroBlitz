@@ -18,6 +18,16 @@ void ABistroBlitzGameMode::BeginPlay()
 	}
 }
 
+void ABistroBlitzGameMode::Tick()
+{
+	SteamAPI_RunCallbacks();
+}
+
+void ABistroBlitzGameMode::Destroyed()
+{
+	SteamAPI_Shutdown();
+}
+
 ABistroBlitzGameMode::ABistroBlitzGameMode()
 {
 	// set default pawn class to our Blueprinted character
