@@ -18,14 +18,16 @@ void ABistroBlitzGameMode::BeginPlay()
 	}
 }
 
-void ABistroBlitzGameMode::Tick()
+void ABistroBlitzGameMode::Tick(float DeltaTime)
 {
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("Tick"));
 	SteamAPI_RunCallbacks();
 }
 
 void ABistroBlitzGameMode::Destroyed()
 {
 	SteamAPI_Shutdown();
+	Super::Destroyed();
 }
 
 ABistroBlitzGameMode::ABistroBlitzGameMode()

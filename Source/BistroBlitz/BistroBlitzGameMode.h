@@ -20,9 +20,9 @@ class ABistroBlitzGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 protected:
-	virtual void BeginPlay();
-	virtual void Tick();
-	virtual void Destroyed();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+	virtual void Destroyed() override;
 
 public:
 	ABistroBlitzGameMode();

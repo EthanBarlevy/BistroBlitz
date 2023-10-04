@@ -27,8 +27,17 @@ void UBasicMatchmakingUI::SearchOnClicked()
 
 void UBasicMatchmakingUI::OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("FoundLobbies"));
-	//SteamAPICall_t CreateLobby(k_ELobbyTypePrivate);
+	auto numLobbies = pLobbyMatchList->m_nLobbiesMatching;
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, FString::Printf(TEXT("%f"), numLobbies));
+	if (pLobbyMatchList->m_nLobbiesMatching <= 0)
+	{
+		SteamAPICall_t hSteamAPICall = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 2);
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("LobbyCreated"));
+	}
+	else
+	{
+		//SteamAPICall_t hSteamAPICall = SteamMatchmaking()->JoinLobby();
+	}
 }
 
 void UBasicMatchmakingUI::JoinOnClicked()
