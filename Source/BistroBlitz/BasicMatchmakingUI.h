@@ -32,11 +32,11 @@ protected:
 	UFUNCTION()
 	void SearchOnClicked();
 
-	//UFUNCTION()
-	void OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure);
-
 	UFUNCTION()
 	void JoinOnClicked();
+
+	//UFUNCTION()
+	void OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure);
 
 	void OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure);
 
