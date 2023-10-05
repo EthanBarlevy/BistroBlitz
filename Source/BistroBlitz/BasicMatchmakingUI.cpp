@@ -68,5 +68,5 @@ void UBasicMatchmakingUI::OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIO
 
 void UBasicMatchmakingUI::OnEnterLobby(LobbyEnter_t* pLobbyEnter, bool bIOFailure)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, TEXT("Joined"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Joined"));
 }
