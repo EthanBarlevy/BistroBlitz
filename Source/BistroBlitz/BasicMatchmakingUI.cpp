@@ -53,6 +53,7 @@ void UBasicMatchmakingUI::JoinOnClicked()
 	m_CallResultLobbyList.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnSearched);
 }
 
+CCallResult <UBasicMatchmakingUI, LobbyEnter_t> m_LobbyJoinEnter;
 void UBasicMatchmakingUI::OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure)
 {
 	for (uint64 i = 0; i < pLobbyMatchList->m_nLobbiesMatching; i++)
@@ -61,5 +62,11 @@ void UBasicMatchmakingUI::OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIO
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, FString::Printf(TEXT("lobbyIndex: %f"), 500));
 		// will be changed to instead bring up a ui for browsing the servers availible
 		SteamAPICall_t hSteamAPICall = SteamMatchmaking()->JoinLobby(LobbyID);
+		m_LobbyJoinEnter.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnEnterLobby);
 	}
+}
+
+void UBasicMatchmakingUI::OnEnterLobby(LobbyEnter_t* pLobbyEnter, bool bIOFailure)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, TEXT("Joined"));
 }

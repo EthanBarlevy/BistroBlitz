@@ -39,4 +39,6 @@ protected:
 	void JoinOnClicked();
 
 	void OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure);
+
+	void OnEnterLobby(LobbyEnter_t* pLobbyEnter, bool bIOFailure);
 };
