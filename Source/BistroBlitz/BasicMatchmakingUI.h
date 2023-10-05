@@ -27,6 +27,14 @@ protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UButton* JoinLobby;
 
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UText* UsersInLobby;
+
+	UPROPERTY(BlueprintReadWrite)
+	int NumUsers;
+
+	class CSteamID LobbyID;
+
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
@@ -35,10 +43,15 @@ protected:
 	UFUNCTION()
 	void JoinOnClicked();
 
+	UFUNCTION(BlueprintCallable)
+	void SetNumUsers();
+
 	//UFUNCTION()
 	void OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure);
 
 	void OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure);
 
 	void OnEnterLobby(LobbyEnter_t* pLobbyEnter, bool bIOFailure);
+
+	void OnCreateLobby(LobbyDataUpdate_t* pLobbyData, bool bIOFailure);
 };

@@ -25,6 +25,7 @@ void UBasicMatchmakingUI::SearchOnClicked()
 	m_CallResultLobbyMatchList.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnLobbyMatchList);
 }
 
+CCallResult <UBasicMatchmakingUI, LobbyDataUpdate_t> m_CallLobbyDataUpdate;
 void UBasicMatchmakingUI::OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bool bIOFailure)
 {
 	auto numLobbies = pLobbyMatchList->m_nLobbiesMatching;
@@ -33,12 +34,13 @@ void UBasicMatchmakingUI::OnLobbyMatchList(LobbyMatchList_t *pLobbyMatchList, bo
 	{
 		SteamAPICall_t hSteamAPICall = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 2);
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, TEXT("LobbyCreated"));
+		m_CallLobbyDataUpdate.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnCreateLobby);
 	}
 	else
 	{
 		for (uint64 i = 0; i < numLobbies; i++)
 		{
-			CSteamID LobbyID = SteamMatchmaking()->GetLobbyByIndex(i);
+			LobbyID = SteamMatchmaking()->GetLobbyByIndex(i);
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, FString::Printf(TEXT("lobbyIndex: %f"), 500));
 			SteamAPICall_t hSteamAPICall = SteamMatchmaking()->JoinLobby(LobbyID);
 		}
@@ -53,12 +55,17 @@ void UBasicMatchmakingUI::JoinOnClicked()
 	m_CallResultLobbyList.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnSearched);
 }
 
+void UBasicMatchmakingUI::SetNumUsers()
+{
+	
+}
+
 CCallResult <UBasicMatchmakingUI, LobbyEnter_t> m_LobbyJoinEnter;
 void UBasicMatchmakingUI::OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure)
 {
 	for (uint64 i = 0; i < pLobbyMatchList->m_nLobbiesMatching; i++)
 	{
-		CSteamID LobbyID = SteamMatchmaking()->GetLobbyByIndex(i);
+		LobbyID = SteamMatchmaking()->GetLobbyByIndex(i);
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, FString::Printf(TEXT("lobbyIndex: %f"), 500));
 		// will be changed to instead bring up a ui for browsing the servers availible
 		SteamAPICall_t hSteamAPICall = SteamMatchmaking()->JoinLobby(LobbyID);
@@ -69,4 +76,11 @@ void UBasicMatchmakingUI::OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIO
 void UBasicMatchmakingUI::OnEnterLobby(LobbyEnter_t* pLobbyEnter, bool bIOFailure)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Joined"));
+	NumUsers = SteamMatchmaking()->GetNumLobbyMembers(LobbyID);
+}
+
+void UBasicMatchmakingUI::OnCreateLobby(LobbyDataUpdate_t* pLobbyData, bool bIOFailure)
+{
+	LobbyID = pLobbyData->m_ulSteamIDLobby;
+	NumUsers = SteamMatchmaking()->GetNumLobbyMembers(LobbyID);
 }
