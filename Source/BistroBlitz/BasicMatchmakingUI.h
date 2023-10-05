@@ -37,4 +37,6 @@ protected:
 
 	UFUNCTION()
 	void JoinOnClicked();
+
+	void OnSearched(LobbyMatchList_t* pLobbyMatchList, bool bIOFailure);
 };
