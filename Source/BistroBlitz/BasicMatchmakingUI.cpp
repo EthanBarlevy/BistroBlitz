@@ -3,6 +3,7 @@
 
 #include "BasicMatchmakingUI.h"
 #include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
 
 void UBasicMatchmakingUI::NativeConstruct()
 {
@@ -14,6 +15,11 @@ void UBasicMatchmakingUI::NativeConstruct()
 	if (JoinLobby)
 	{
 		JoinLobby->OnClicked.AddDynamic(this, &UBasicMatchmakingUI::JoinOnClicked);
+	}
+
+	if (StartGame)
+	{
+		StartGame->OnClicked.AddDynamic(this, &UBasicMatchmakingUI::StartGameOnClicked);
 	}
 }
 
@@ -55,6 +61,19 @@ void UBasicMatchmakingUI::JoinOnClicked()
 	m_CallResultLobbyList.Set(hSteamAPICall, this, &UBasicMatchmakingUI::OnSearched);
 }
 
+void UBasicMatchmakingUI::StartGameOnClicked()
+{
+	UGameplayStatics::OpenLevel(GetWorld(), "MainMap", true, "Listen");
+	
+}
+
+void UBasicMatchmakingUI::JoinGameOnClicked()
+{
+	//APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	//const char* data = SteamMatchmaking()->GetLobbyMemberData(LobbyID, SteamMatchmaking()->GetLobbyOwner(LobbyID), );
+	//PlayerController->ClientTravel("", ETravelType::TRAVEL_Absolute);
+}
+
 void UBasicMatchmakingUI::SetNumUsers()
 {
 	
@@ -83,4 +102,5 @@ void UBasicMatchmakingUI::OnCreateLobby(LobbyDataUpdate_t* pLobbyData, bool bIOF
 {
 	LobbyID = pLobbyData->m_ulSteamIDLobby;
 	NumUsers = SteamMatchmaking()->GetNumLobbyMembers(LobbyID);
+	SteamMatchmaking()->SetLobbyMemberData(LobbyID, "Address", "");
 }

@@ -28,7 +28,13 @@ protected:
 	class UButton* JoinLobby;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UText* UsersInLobby;
+	class UButton* StartGame;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UButton* JoinGame;
+
+	//UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+//	class UText* UsersInLobby;
 
 	UPROPERTY(BlueprintReadWrite)
 	int NumUsers;
@@ -42,6 +48,12 @@ protected:
 
 	UFUNCTION()
 	void JoinOnClicked();
+
+	UFUNCTION()
+	void StartGameOnClicked();
+
+	UFUNCTION()
+	void JoinGameOnClicked();
 
 	UFUNCTION(BlueprintCallable)
 	void SetNumUsers();
