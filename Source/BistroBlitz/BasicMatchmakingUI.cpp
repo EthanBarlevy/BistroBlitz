@@ -71,7 +71,7 @@ void UBasicMatchmakingUI::JoinGameOnClicked()
 {
 	//APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	//const char* data = SteamMatchmaking()->GetLobbyMemberData(LobbyID, SteamMatchmaking()->GetLobbyOwner(LobbyID), );
-	//PlayerController->ClientTravel("", ETravelType::TRAVEL_Absolute);
+	PlayerController->ClientTravel("69.27.21.152:7777", ETravelType::TRAVEL_Absolute);
 }
 
 void UBasicMatchmakingUI::SetNumUsers()
